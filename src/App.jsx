@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  const API_URL = "API_URL"; 
+  // 3. This is like OnInitializedAsync. It runs once on component mount.
+  useEffect(() => {
+    // We define an async function inside to fetch the data
+    async function fetchData() {
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        setMessage(data.message); 
+      } catch (error) {
+        setMessage(`Error: ${error.message}`);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData(); // call the function :)
+  }, []); // empty array = "run only once"
+
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>EchoScribe</h1>
+      <h2>Message from our AWS Go API:</h2>
+      {/* conditionally render content */}
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <p style={{ color: 'green', fontWeight: 'bold' }}>{message}</p>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
