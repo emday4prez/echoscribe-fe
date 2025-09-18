@@ -8,7 +8,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
 
-  const API_URL = "API_URL"; 
+   const API_URL = import.meta.env.VITE_API_URL; 
+
   // runs once on component mount
   useEffect(() => {
 
