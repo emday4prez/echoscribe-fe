@@ -9,9 +9,9 @@ function App() {
 
 
   const API_URL = "API_URL"; 
-  // 3. This is like OnInitializedAsync. It runs once on component mount.
+  // runs once on component mount
   useEffect(() => {
-    // We define an async function inside to fetch the data
+
     async function fetchData() {
       try {
         const response = await fetch(API_URL);
