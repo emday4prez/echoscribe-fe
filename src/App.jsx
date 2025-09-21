@@ -1,46 +1,19 @@
-import { useState, useEffect } from 'react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 import './App.css';
 
-
-function App() {
-
-  const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-
-
-   const API_URL = import.meta.env.VITE_API_URL; 
-
-  // runs once on component mount
-  useEffect(() => {
-
-    async function fetchData() {
-      try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        setMessage(data.message); 
-      } catch (error) {
-        setMessage(`Error: ${error.message}`);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchData(); // call the function :)
-  }, []); // empty array = "run only once"
-
-
+// withAuthenticator component wraps the app
+// automatically show a sign-in/sign-up form
+// if the user is not authenticated.
+function App({ signOut, user }) {
   return (
     <div>
-      <h1>EchoScribe</h1>
-      <h2>Message from our AWS Go API:</h2>
-      {/* conditionally render content */}
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <p style={{ color: 'green', fontWeight: 'bold' }}>{message}</p>
-      )}
+      <h1>Hello, {user.username}!</h1>
+      <p>Welcome to EchoScribe.</p>
+      {/* This signOut function is provided by withAuthenticator */}
+      <button onClick={signOut}>Sign out</button>
     </div>
   );
 }
 
-export default App;
+export default withAuthenticator(App);
