@@ -8,10 +8,12 @@ import './App.css';
 function App({ signOut, user }) {
   return (
     <div>
-      <h1>Hello, {user.username}!</h1>
-      <p>Welcome to EchoScribe.</p>
-      {/* This signOut function is provided by withAuthenticator */}
-      <button onClick={signOut}>Sign out</button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>Hello, {user.username}</h1>
+        <button onClick={signOut}>Sign out</button>
+      </div>
+      <hr />
+      <Uploader /> 
     </div>
   );
 }
