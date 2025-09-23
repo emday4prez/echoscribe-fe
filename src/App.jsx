@@ -1,6 +1,7 @@
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import './App.css';
+import Uploader from './Uploader';
 
 // withAuthenticator component wraps the app
 // automatically show a sign-in/sign-up form
