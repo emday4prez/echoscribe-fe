@@ -3,9 +3,7 @@ import '@aws-amplify/ui-react/styles.css';
 import './App.css';
 import Uploader from './Uploader';
 
-// withAuthenticator component wraps the app
-// automatically show a sign-in/sign-up form
-// if the user is not authenticated.
+
 function App({ signOut, user }) {
   return (
     <div>
@@ -19,4 +17,5 @@ function App({ signOut, user }) {
   );
 }
 
+//wrap app with aws-amplify authenticator
 export default withAuthenticator(App);
