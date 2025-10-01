@@ -24,8 +24,8 @@ function Uploader() {
     try {
       // get token
       const session = await fetchAuthSession();
-      const jwtToken = session.tokens.idToken.toString();
-
+       const jwtToken = session.tokens.accessToken.toString();
+console.log("Sending this Access Token:", jwtToken);
       // fetch presigned url
       const response = await fetch(`${API_URL}/generate-upload-url?fileName=${selectedFile.name}`, {
         method: 'POST',
@@ -35,7 +35,8 @@ function Uploader() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to get upload URL.');
+         const errorText = await response.text();
+        throw new Error(`Failed to get upload URL. Status: ${response.status}. Message: ${errorText}`);
       }
 
       const presignedUrl = await response.text();
